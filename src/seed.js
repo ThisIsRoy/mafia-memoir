@@ -27,23 +27,23 @@ export default [
     },
     {    
         players: [
-            {name: "Wynne Zhang"},
-            {name: "Karin Diamond"},
-            {name: "Emma Livingston"},
-            {name: "Nick C"},
-            {name: "Katie"},
-            {name: "Grace"},
-            {name: "Kev"},
-            {name: "Archana"},
+            {name: "Wynne Zhang", role:"Vanilla Town"},
+            {name: "Karin Diamond", role:"Vanilla Town"},
+            {name: "Emma Livingston", role:"Vanilla Town"},
+            {name: "Nick C", role:"Vanilla Town"},
+            {name: "Katie", role:"Vigilante"},
+            {name: "Grace", role:"Medic"},
+            {name: "Kev", role:"Cop"},
+            {name: "Archana", role:"Vanilla Town"},
         ]
     },
         
         
     {
         players: [
-            {name: "Nathan Bucki"},
-            {name: "Elizabeth G"},
-            {name: "Tiffany"},
+            {name: "Nathan Bucki", role:"Mafia"},
+            {name: "Elizabeth G", role:"Mafia"},
+            {name: "Tiffany", role:"Mafia"},
         ]
     }
 ]

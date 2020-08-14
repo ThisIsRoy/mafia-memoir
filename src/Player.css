@@ -1,8 +1,28 @@
+.BoxContainer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 12vw;
+}
+
+.BoxContainer span {
+    color: white;
+    font-size: 1.8vw;
+    /* text-transform: uppercase; */
+}
+
 .Player {
     cursor: pointer;
     display: inline-block;
-    height: 25%;
     margin: 0 auto;
     position: relative;
-    width: 20%;
+    width: 25%;
+}
+
+.RoleImage {
+    bottom: 1rem;
+    filter: invert(100%) sepia(13%) saturate(7439%) hue-rotate(216deg) brightness(112%) contrast(116%);
+    height: 2.5vw;
+    position: absolute;
+    right: 1rem;
 }
