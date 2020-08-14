@@ -1,0 +1,8 @@
+.Player {
+    cursor: pointer;
+    display: inline-block;
+    height: 25%;
+    margin: 0 auto;
+    position: relative;
+    width: 20%;
+}
