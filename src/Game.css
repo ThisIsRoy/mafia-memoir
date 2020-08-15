@@ -1,15 +1,15 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300);
 @import url(https://fonts.googleapis.com/css?family=Squada+One);
 
+body {
+  padding: 20px 80px;
+  /* background: #eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png); */
+}
+
 .Game {
     height: 100vh;
     margin: 0 auto;
     width: 90%;
-}
-
-body {
-  padding: 20px 80px;
-  /* background: #eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png); */
 }
 
 .FactionHeader {
@@ -51,4 +51,10 @@ body {
   z-index: -5;
   display: block;
   text-shadow: none;
+}
+
+.Trophy {
+  display: inline-block;
+  align-items: center;
+  height: 6vh;
 }

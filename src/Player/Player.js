@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import './Player.css';
-import cop from './icons/cop.svg';
-import mafia from './icons/mafia.svg';
-import medic from './icons/medic.svg';
-import town from './icons/town.svg';
-import vigi from './icons/vigi.svg';
+import cop from '../icons/cop.svg';
+import mafia from '../icons/mafia.svg';
+import medic from '../icons/medic.svg';
+import town from '../icons/town.svg';
+import vigi from '../icons/vigi.svg';
 
 class Player extends Component {
     render() {
