@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import Player from './Player.js';
+import Player from './Player/Player.js';
 import './Game.css';
+import Navbar from './Player/Navbar.js';
 
 class Game extends Component {
     render() {
@@ -18,6 +19,7 @@ class Game extends Component {
 
         return (
             <div className="Game">
+                <Navbar winner="Town"/>
                 <div className="Faction">
                     <h1 className={`FactionHeader FactionMafia`}>Mafia</h1>
                     {mafiaPlayers}

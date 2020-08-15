@@ -1,0 +1,24 @@
+.Slider {
+    display: inline-block;
+    margin: 0 10px;
+    width: 8vw;
+}
+
+.rc-slider-track {
+    background-color: transparent;
+}
+
+.rc-slider-rail {
+    height: 8px;
+}
+
+.rc-slider-handle,
+.rc-slider-handle:focus {
+    background-color: steelblue;
+    border: 2px solid steelblue;
+    box-shadow: none;
+    height: 13px;
+    margin-top: -3px;
+    outline: none;
+    width: 13px;
+}
