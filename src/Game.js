@@ -1,9 +1,20 @@
 import React, {Component} from 'react';
 import Player from './Player/Player.js';
 import './Game.css';
-import Navbar from './Player/Navbar.js';
+import Navbar from './Navbar.js';
 
 class Game extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            winner: 3
+        }
+    }
+
+    updateWinner = newWinner => {
+        this.setState({winner: newWinner});
+    }
+
     render() {
         let townColor;
         const townPlayers = this.props.townPlayers.map(townPlayer => {
@@ -19,7 +30,7 @@ class Game extends Component {
 
         return (
             <div className="Game">
-                <Navbar winner="Town"/>
+                <Navbar winner={this.state.winner} updateWinner={this.updateWinner} />
                 <div className="Faction">
                     <h1 className={`FactionHeader FactionMafia`}>Mafia</h1>
                     {mafiaPlayers}
