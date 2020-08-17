@@ -29,6 +29,10 @@
     width: 8vw;
 }
 
+.SelectContainer {
+    margin-left: auto;
+}
+
 .rc-slider-track {
     background-color: transparent;
 }
