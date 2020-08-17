@@ -18,9 +18,12 @@
 
 .Navbar {
     align-items: center;
+    background-color: lightgreen;
     display: flex;
     height: 6vh;
     justify-content: flex-start;
+    margin: 0 auto;
+    padding-left: 2vw;
 }
 
 .Slider {
@@ -30,7 +33,9 @@
 }
 
 .SelectContainer {
+    color: white;
     margin-left: auto;
+    padding-right: 2vw;
 }
 
 .rc-slider-track {

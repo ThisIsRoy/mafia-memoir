@@ -49,11 +49,11 @@ class Game extends Component {
         let mafiaTitle;
         let townTitle;
         switch (this.state.winner) {
-            case "town":
+            case "mafia":
                 mafiaTitle = <h1 className={`FactionHeader FactionMafia`}><img src={trophy} className="Trophy" /> Mafia </h1>
                 townTitle = <h1 className={`FactionHeader FactionTown`}>Town</h1>
                 break;
-            case "mafia":
+            case "town":
                 mafiaTitle = <h1 className={`FactionHeader FactionMafia`}> Mafia </h1>
                 townTitle = <h1 className={`FactionHeader FactionTown`}><img src={trophy} className="Trophy" /> Town</h1>
                 break;
@@ -94,15 +94,19 @@ class Game extends Component {
         }
 
         return (
-            <div className="Game">
+            <div>
                 <Navbar 
                     winner={this.state.winner} 
                     updateWinner={this.updateWinner} 
                     changePage={this.changePage}
                 />
-
+                <div className="Game">
+                
                 {page}
             </div>
+            </div>
+            
+            
         )
     };
 }
