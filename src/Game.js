@@ -34,15 +34,18 @@ class Game extends Component {
     }
 
     render() {
+        const townColors = this.props.townColors.colors;
+        const mafiaColors = this.props.mafiaColors.colors;
+
         let townColor;
-        const townPlayers = this.props.townPlayers.map(townPlayer => {
-            townColor = this.props.townColors[Math.floor(Math.random() * this.props.townColors.length)].color;
+        const townPlayers = this.props.townPlayers.players.map(townPlayer => {
+            townColor = townColors[Math.floor(Math.random() * townColors.length)].color;
             return <Player player={townPlayer} color={townColor}/>
         });
 
         let mafiaColor;
-        const mafiaPlayers = this.props.mafiaPlayers.map(mafiaPlayer => {
-            mafiaColor = this.props.mafiaColors[Math.floor(Math.random() * this.props.mafiaColors.length)].color;
+        const mafiaPlayers = this.props.mafiaPlayers.players.map(mafiaPlayer => {
+            mafiaColor = mafiaColors[Math.floor(Math.random() * mafiaColors.length)].color;
             return <Player player={mafiaPlayer} color={mafiaColor}/>
         });
         

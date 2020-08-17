@@ -1,8 +1,7 @@
 export default [
     {
       paletteName: "Material UI Colors",
-      id: "material-ui-colors",
-      emoji: "🎨",
+      id: "seed-colors",
       colors: [
         { name: "red", color: "#F44336" },
         { name: "pink", color: "#E91E63" },
@@ -26,6 +25,7 @@ export default [
       ]
     },
     {    
+        id: "test-town-seed",
         players: [
             {name: "Wynne Zhang", role:"Vanilla Town"},
             {name: "Karin Diamond", role:"Vanilla Town"},
@@ -40,6 +40,7 @@ export default [
         
         
     {
+        id: "test-mafia-seed",
         players: [
             {name: "Nathan Bucki", role:"Mafia"},
             {name: "Elizabeth G", role:"Mafia"},
