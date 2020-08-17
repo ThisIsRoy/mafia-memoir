@@ -16,6 +16,10 @@
     text-decoration: none;
 }
 
+.HomeButtonContainer {
+    padding-right: 1vw;
+}
+
 .Navbar {
     align-items: center;
     background-color: lightgreen;

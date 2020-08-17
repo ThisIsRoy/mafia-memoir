@@ -5,6 +5,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import 'rc-slider/assets/index.css';
 import './Navbar.css';
 import { Menu } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom';
 
 class Navbar extends Component {
     constructor(props) {
@@ -51,10 +53,17 @@ class Navbar extends Component {
                     </div>
                     
                     <div className="SelectContainer">
-                        <Select value={this.state.page} onChange={this.handleChangePage}>
+                        <Select value={this.state.page} onChange={this.handleChangePage} MenuProps={{disableScrollLock: true}} >
                             <MenuItem value={"summary"}>Summary</MenuItem>
                             <MenuItem value={"notes"}>Notes</MenuItem>
                         </Select>
+                    </div>
+                    <div className="HomeButtonContainer">
+                        <Link to="/">
+                            <Button variant="outlined">
+                                Home
+                            </Button>
+                        </Link>
                     </div>
                 </header>
             </div>

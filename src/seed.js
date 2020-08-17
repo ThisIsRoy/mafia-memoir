@@ -1,7 +1,8 @@
 export default [
     {
-      paletteName: "Material UI Colors",
+      gameName: "Aug 17th",
       id: "seed-colors",
+      url: "test",
       colors: [
         { name: "red", color: "#F44336" },
         { name: "pink", color: "#E91E63" },

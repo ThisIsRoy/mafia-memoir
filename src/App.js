@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
+import GameList from './GameList.js';
 import Game from './Game.js'
 import seed from './seed.js';
 
@@ -17,7 +18,7 @@ class App extends Component {
     return(
       <div>
         <Switch>
-          <Route exact path ="/" render={() => <p>Placeholder page!</p>}/>
+          <Route exact path ="/" render={() => <GameList seed={seed}/>}/>
           <Route exact path ="/game/:id" 
             render={routerProps => (
               <Game 
