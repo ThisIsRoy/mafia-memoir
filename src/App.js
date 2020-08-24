@@ -18,14 +18,14 @@ class App extends Component {
     return(
       <div>
         <Switch>
-          <Route exact path ="/" render={() => <GameList seed={seed}/>}/>
+          <Route exact path ="/" render={() => <GameList gamesInfo={seed}/>}/>
           <Route exact path ="/game/:id" 
             render={routerProps => (
               <Game 
                 townColors={this.findSeed("seed-colors")}
                 mafiaColors={this.findSeed("seed-colors")}
-                townPlayers={this.findSeed(routerProps.match.params.id + "-town-seed")}
-                mafiaPlayers={this.findSeed(routerProps.match.params.id + "-mafia-seed")}
+                townPlayers={this.findSeed("town-" + routerProps.match.params.id)}
+                mafiaPlayers={this.findSeed("mafia-" + routerProps.match.params.id)}
               />
             )}
           />
