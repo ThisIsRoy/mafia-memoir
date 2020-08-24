@@ -13,8 +13,12 @@ const styles = {
             cursor: "pointer"
         }
     },
-    colors: {
-        backgroundColor: "gray"
+    imageBox: {
+        backgroundColor: "#dae1e4",
+        height: "150px",
+        borderRadius: "5px",
+        width: "100%",
+        overflow: "hidden"
     },
     title: {
         display: "flex",
@@ -23,8 +27,18 @@ const styles = {
         margin: "0",
         color: "black",
         paddingTop: "0.5rem",
+        paddingBottom: "0.5rem",    
         fontSize: "1rem",
         position: "relative"
+    }, 
+    image: {
+        backgroundColor: "green",
+        height: "100%",
+        width: "100%",
+        display: "inline-block",
+        margin: "0 auto",
+        position: "relative",
+        marginBottom: "-3.5px"
     }
 }
 
@@ -33,8 +47,10 @@ function GamePreview(props) {
 
     return (
         <div className={classes.root}>
-            <div className={classes.color}>{gameInfo[0].gameName}</div>
-    <h5 className={classes.title}>{gameInfo[0].url}</h5>
+            <div className={classes.imageBox}>
+                <div className={classes.image} style={{backgroundColor: "green"}} />
+            </div>
+            <h5 className={classes.title}>{gameInfo[0].gameName}</h5>
         </div>
     )       
 }
