@@ -34,8 +34,8 @@ class Game extends Component {
     }
 
     render() {
-        const townColors = this.props.townColors.colors;
-        const mafiaColors = this.props.mafiaColors.colors;
+        const townColors = this.props.townColors;
+        const mafiaColors = this.props.mafiaColors;
 
         let townColor;
         const townPlayers = this.props.townPlayers.players.map(townPlayer => {

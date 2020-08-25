@@ -3,9 +3,10 @@ import {Route, Switch} from 'react-router-dom';
 import GameList from './GameList.js';
 import Game from './Game.js'
 import seed from './seed.js';
+import seedColors from "./seedColors.js";
 
 class App extends Component {
-  findSeed = id => seed.find(val => val.id === id);
+  findSeed = id => seed.find(val => val[0].url === id);
   
 
   render() {
@@ -18,14 +19,14 @@ class App extends Component {
     return(
       <div>
         <Switch>
-          <Route exact path ="/" render={() => <GameList gamesInfo={seed}/>}/>
+          <Route exact path ="/" render={(routeProps) => <GameList gamesInfo={seed} {...routeProps}/>}/>
           <Route exact path ="/game/:id" 
             render={routerProps => (
               <Game 
-                townColors={this.findSeed("seed-colors")}
-                mafiaColors={this.findSeed("seed-colors")}
-                townPlayers={this.findSeed("town-" + routerProps.match.params.id)}
-                mafiaPlayers={this.findSeed("mafia-" + routerProps.match.params.id)}
+                townColors={seedColors}
+                mafiaColors={seedColors}
+                townPlayers={this.findSeed( routerProps.match.params.id)[1]}
+                mafiaPlayers={this.findSeed(routerProps.match.params.id)[2]}
               />
             )}
           />

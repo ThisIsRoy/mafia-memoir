@@ -46,7 +46,7 @@ function GamePreview(props) {
     const {classes, gameInfo} = props;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} onClick={props.handleClick}>
             <div className={classes.imageBox}>
                 <div className={classes.image} style={{backgroundColor: "green"}} />
             </div>

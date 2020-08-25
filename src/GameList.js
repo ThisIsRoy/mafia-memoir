@@ -34,6 +34,10 @@ const styles = {
 }
 
 class GameList extends Component {
+    handleClick = url => {
+        this.props.history.push(`/game/${url}`)
+    }
+
     render() {
         const {gamesInfo, classes} = this.props;
 
@@ -46,7 +50,7 @@ class GameList extends Component {
 
                     <div className={classes.games}>
                         {gamesInfo.map(gameInfo => (
-                            <GamePreview gameInfo={gameInfo}/>
+                            <GamePreview gameInfo={gameInfo} handleClick={() => this.handleClick(gameInfo[0].url)} />
                         ))}
 
                         <Link to={`/game/${gamesInfo[0][0].url}`}>
