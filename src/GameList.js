@@ -1,37 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import GamePreview from './GamePreview.js';
-import {withStyles} from "@material-ui/styles";
-
-const styles = {
-    root: {
-        backgroundColor: "lightblue",
-        height: "100vh",
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "center"
-    },
-    container: {
-        width: "50%",
-        display: "flex",
-        alignItems: "flex-start",
-        flexDirection: "column",
-        flexWrap: "wrap"
-    },
-    nav: {
-        color: "white",
-        display: "flex",
-        width: "100%",
-        justifyContent: "space-between"
-    },
-    games: {
-        boxSizing: "border-box",
-        width: "100%",
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 30%)",
-        gridGap: "5%"
-    }
-}
+import {withStyles } from "@material-ui/styles";
+import styles from './GameListStyles.js';
 
 class GameList extends Component {
     handleClick = url => {
@@ -45,17 +16,14 @@ class GameList extends Component {
             <div className={classes.root}>
                 <div className={classes.container}>
                     <nav className={classes.nav}>
-                        <h1>Mafia Games</h1>
+                        <h1>Team Mafia Games</h1>
+                        <Link to="/game/new">Create Game</Link>
                     </nav>
 
                     <div className={classes.games}>
                         {gamesInfo.map(gameInfo => (
                             <GamePreview gameInfo={gameInfo} handleClick={() => this.handleClick(gameInfo[0].url)} />
                         ))}
-
-                        <Link to={`/game/${gamesInfo[0][0].url}`}>
-                            {gamesInfo[0][0].gameName}
-                        </Link>
                     </div>
                 </div>
             </div>

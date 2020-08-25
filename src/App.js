@@ -4,6 +4,7 @@ import GameList from './GameList.js';
 import Game from './Game.js'
 import seed from './seed.js';
 import seedColors from "./seedColors.js";
+import NewGameForm from './NewGameForm.js';
 
 class App extends Component {
   findSeed = id => seed.find(val => val[0].url === id);
@@ -19,8 +20,10 @@ class App extends Component {
     return(
       <div>
         <Switch>
-          <Route exact path ="/" render={(routeProps) => <GameList gamesInfo={seed} {...routeProps}/>}/>
-          <Route exact path ="/game/:id" 
+          <Route exact path="/game/new"   
+            render={() => <NewGameForm />}
+          />
+          <Route exact path="/game/:id" 
             render={routerProps => (
               <Game 
                 townColors={seedColors}
@@ -30,6 +33,7 @@ class App extends Component {
               />
             )}
           />
+          <Route exact path ="/" render={(routeProps) => <GameList gamesInfo={seed} {...routeProps}/>}/>
         </Switch>
       </div>
     )
