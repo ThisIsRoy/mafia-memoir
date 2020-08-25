@@ -11,9 +11,15 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -124,7 +130,20 @@ export default function NewGameForm() {
             </IconButton>
           </div>
           <Divider />
-          <Divider />
+          <Typography variant="h4">Create Teams</Typography>
+          <div>
+            <Button variant="contained" color="primary">Assign Roles</Button>
+            <Button variant="contained" color="secondary">Clear Players</Button>
+          </div>
+          <div>
+
+          </div>
+          <Select id="playerSelect" value="test3">
+            <MenuItem value="test1">Test1</MenuItem>
+            <MenuItem value="test2">Test2</MenuItem>
+            <MenuItem value="test3">Test3</MenuItem>
+          </Select>
+          <Button variant="contained" color="primary">Add Player</Button>
         </Drawer>
         <main
           className={clsx(classes.content, {
