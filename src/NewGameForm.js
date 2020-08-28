@@ -78,10 +78,12 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function NewGameForm() {
+export default function NewGameForm(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [players, updatePlayers] = React.useState([]);
+    const [playerToAdd, updatePlayerToAdd] = React.useState("");
   
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -138,12 +140,12 @@ export default function NewGameForm() {
           <div>
 
           </div>
-          <Select id="playerSelect" value="test3">
-            <MenuItem value="test1">Test1</MenuItem>
-            <MenuItem value="test2">Test2</MenuItem>
-            <MenuItem value="test3">Test3</MenuItem>
+          <Select id="playerSelect" onChange={e => updatePlayerToAdd(e.target.value)}>
+            {props.playerList.map(player => (
+              <MenuItem value={player.name}>{player.name}</MenuItem>
+            ))}
           </Select>
-          <Button variant="contained" color="primary">Add Player</Button>
+          <Button variant="contained" color="primary" onClick={() => updatePlayers(players.concat(playerToAdd))}>Add Player</Button>
         </Drawer>
         <main
           className={clsx(classes.content, {
@@ -151,6 +153,10 @@ export default function NewGameForm() {
           })}
         >
           <div className={classes.drawerHeader} />
+          
+          {players.map(player =>(
+            <li>{player}</li>
+          ))}
         </main>
       </div>
     );
