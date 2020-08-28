@@ -61,6 +61,11 @@ const useStyles = makeStyles((theme) => ({
       ...theme.mixins.toolbar,
       justifyContent: 'flex-end',
     },
+    mafiaSelect: {
+      display: "inline-block",
+      marginRight: "1.5rem",
+      verticalAlign: "super"
+    },
     content: {
       flexGrow: 1,
       height: "calc(100vh - 64px)",
@@ -86,6 +91,7 @@ export default function NewGameForm(props) {
     const [open, setOpen] = React.useState(false);
     const [players, updatePlayers] = React.useState([]); // players is a list of Player objects
     const [playerToAdd, updatePlayerToAdd] = React.useState(""); //playerToAdd is one Player object
+    const [mafiaNum, updateMafiaNum] = React.useState(3);
   
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -135,18 +141,29 @@ export default function NewGameForm(props) {
           </div>
           <Divider />
           <Typography variant="h4">Create Teams</Typography>
+          
+          <div>
+            <InputLabel className={classes.mafiaSelect} id="mafia">Number of Mafia</InputLabel>
+            <Select labelId="mafia" id="mafiaSelect" defaultValue={3} onChange={e => updateMafiaNum(e.target.value)}>
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+            </Select>
+          </div>
+
           <div>
             <Button variant="contained" color="primary">Assign Roles</Button>
             <Button variant="contained" color="secondary" onClick={() => updatePlayers([])}>Clear Players</Button>
           </div>
-          <div>
 
+          <div>
+            <Select id="playerSelect" onChange={e => updatePlayerToAdd(e.target.value)}>
+              {props.playerList.map(player => (
+                <MenuItem value={player}>{player.name}</MenuItem>
+              ))}
+            </Select>
           </div>
-          <Select id="playerSelect" onChange={e => updatePlayerToAdd(e.target.value)}>
-            {props.playerList.map(player => (
-              <MenuItem value={player}>{player.name}</MenuItem>
-            ))}
-          </Select>
+          
           <Button variant="contained" color="primary" onClick={() => updatePlayers(players.concat(playerToAdd))}>Add Player</Button>
         </Drawer>
         <main
