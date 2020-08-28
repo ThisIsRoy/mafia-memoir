@@ -17,6 +17,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import NewGamePlayer from './NewGamePlayer.js';
 
 
 const drawerWidth = 400;
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
       flexGrow: 1,
+      height: "calc(100vh - 64px)",
       padding: theme.spacing(3),
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
@@ -82,8 +84,8 @@ export default function NewGameForm(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const [players, updatePlayers] = React.useState([]);
-    const [playerToAdd, updatePlayerToAdd] = React.useState("");
+    const [players, updatePlayers] = React.useState([]); // players is a list of Player objects
+    const [playerToAdd, updatePlayerToAdd] = React.useState(""); //playerToAdd is one Player object
   
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -135,14 +137,14 @@ export default function NewGameForm(props) {
           <Typography variant="h4">Create Teams</Typography>
           <div>
             <Button variant="contained" color="primary">Assign Roles</Button>
-            <Button variant="contained" color="secondary">Clear Players</Button>
+            <Button variant="contained" color="secondary" onClick={() => updatePlayers([])}>Clear Players</Button>
           </div>
           <div>
 
           </div>
           <Select id="playerSelect" onChange={e => updatePlayerToAdd(e.target.value)}>
             {props.playerList.map(player => (
-              <MenuItem value={player.name}>{player.name}</MenuItem>
+              <MenuItem value={player}>{player.name}</MenuItem>
             ))}
           </Select>
           <Button variant="contained" color="primary" onClick={() => updatePlayers(players.concat(playerToAdd))}>Add Player</Button>
@@ -155,7 +157,7 @@ export default function NewGameForm(props) {
           <div className={classes.drawerHeader} />
           
           {players.map(player =>(
-            <li>{player}</li>
+            <NewGamePlayer player={player} />
           ))}
         </main>
       </div>
