@@ -18,6 +18,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NewGamePlayer from './NewGamePlayer.js';
+import {ValidatorForm, SelectValidator} from 'react-material-ui-form-validator';
 
 
 const drawerWidth = 400;
@@ -89,9 +90,10 @@ export default function NewGameForm(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const [players, updatePlayers] = React.useState([]); // players is a list of Player objects
+    const [players, updatePlayers] = React.useState([]); // players is a list of Player objects that are currently in the game
     const [playerToAdd, updatePlayerToAdd] = React.useState(""); //playerToAdd is one Player object
     const [mafiaNum, updateMafiaNum] = React.useState(3);
+    const [disableAdd, updateDisableAdd] = React.useState(false);
   
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -100,6 +102,40 @@ export default function NewGameForm(props) {
     const handleDrawerClose = () => {
       setOpen(false);
     };
+
+    const componentDidMount = () => {
+      // custom rule will have name 'isPasswordMatch'
+      ValidatorForm.addValidationRule('isNewPlayer', value => {
+         return players.every(
+           player => player.name.toLowerCase() !== value.toLowerCase()
+         );
+      });
+    };
+
+    const handleSelect = e => {
+      updatePlayerToAdd(e.target.value);
+
+      let notInGame = players.every(
+        player => player.name !== e.target.value.name
+      );
+
+      if (!notInGame) {
+        updateDisableAdd(true);
+      } else {
+        updateDisableAdd(false);
+      }
+    }
+
+    const handleSubmit = () => {
+      updatePlayers(players.concat(playerToAdd));
+      
+      updateDisableAdd(true);
+    }
+
+    const handleClear = () => {
+      updatePlayers([]);
+      updateDisableAdd(false);
+    }
   
     return (
       <div className={classes.root}>
@@ -153,18 +189,40 @@ export default function NewGameForm(props) {
 
           <div>
             <Button variant="contained" color="primary">Assign Roles</Button>
-            <Button variant="contained" color="secondary" onClick={() => updatePlayers([])}>Clear Players</Button>
+            <Button variant="contained" color="secondary" onClick={handleClear}>Clear Players</Button>
           </div>
 
           <div>
-            <Select id="playerSelect" onChange={e => updatePlayerToAdd(e.target.value)}>
+            <Select id="playerSelect" onChange={handleSelect}>
               {props.playerList.map(player => (
                 <MenuItem value={player}>{player.name}</MenuItem>
               ))}
             </Select>
           </div>
           
-          <Button variant="contained" color="primary" onClick={() => updatePlayers(players.concat(playerToAdd))}>Add Player</Button>
+          <ValidatorForm onSubmit={handleSubmit} >
+            {/* <SelectValidator
+              value={playerToAdd}
+              validators={["isNewPlayer"]}
+              errorMessages={["Player is already in the game!"]}
+              onChange={handleSelect}
+            >
+              {props.playerList.map(player => (
+                <MenuItem value={player}>{player.name}</MenuItem>
+              ))}
+            </SelectValidator> */}
+
+            <Button 
+              variant="contained" 
+              color="primary"
+              type="submit" 
+              disabled={disableAdd}
+            >
+              Add Player
+            </Button>
+          </ValidatorForm>
+
+          
         </Drawer>
         <main
           className={clsx(classes.content, {
