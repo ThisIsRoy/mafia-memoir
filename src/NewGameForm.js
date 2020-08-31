@@ -96,7 +96,6 @@ export default function NewGameForm(props) {
     const [players, updatePlayers] = React.useState([]); // players is a list of Player objects that are currently in the game
     const [playerToAdd, updatePlayerToAdd] = React.useState(""); //playerToAdd is one Player object
     const [mafiaNum, updateMafiaNum] = React.useState(3);
-    // const [disableAssign, updateDisableAssign] = React.useState(true);
   
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -107,6 +106,10 @@ export default function NewGameForm(props) {
     };
 
     const handleClear = () => {
+      updatePlayers(players.map(player => {
+        delete player["role"];
+        return player;
+      }));
       updatePlayers([]);
     }
 
@@ -116,6 +119,42 @@ export default function NewGameForm(props) {
       } else {
         updatePlayers(players.filter(player => player.name.toLowerCase() !== e.target.name.toLowerCase()));
       }
+    }
+
+    const handleAssign = () => {
+      let random = [];
+      let i;
+
+      // grab random indices for roles
+      while (random.length < mafiaNum + 3) {
+        i = Math.floor(Math.random() * players.length);
+        if (random.indexOf(i) === -1) {
+          random.push(i);
+        }
+      }
+
+      let newPlayers = players.slice();
+
+      // assign mafia
+      for (i = 0; i < mafiaNum; i++) {
+        newPlayers[random[i]]["role"] = "Mafia"  
+      }
+
+      // assign power roles
+      const powerRoles = ["Cop", "Medic", "Vigilante"];
+      for (i = mafiaNum; i < random.length; i++) {
+        newPlayers[random[i]]["role"] = powerRoles[i - mafiaNum];
+      }
+
+      // assign vanilla town
+      for (let player of newPlayers) {
+        if (!player.role) {
+          player["role"] = "Vanilla Town";
+        }
+      }
+
+      updatePlayers(newPlayers);
+      console.log(players);
     }
   
     return (
@@ -170,7 +209,11 @@ export default function NewGameForm(props) {
           </div>
 
           <div>
-            <Button variant="contained" color="primary" disabled={mafiaNum * 2 < players.length ? false : true}>Assign Roles</Button>
+            <Button variant="contained" 
+              color="primary" 
+              disabled={mafiaNum * 2 + 3 < players.length ? false : true}
+              onClick={handleAssign}
+            >Assign Roles</Button>
             <Button variant="contained" color="secondary" onClick={handleClear}>Clear Players</Button>
           </div>
 
