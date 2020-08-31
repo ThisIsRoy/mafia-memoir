@@ -17,6 +17,7 @@ function NewGamePlayer(props) {
     return (
         <div className={props.classes.root } style={{backgroundColor: props.player.color}}>
             {props.player.name}
+            {props.role ? props.role : "?"}
         </div>
     )
 }

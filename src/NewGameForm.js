@@ -18,7 +18,10 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NewGamePlayer from './NewGamePlayer.js';
-import {ValidatorForm, SelectValidator} from 'react-material-ui-form-validator';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 const drawerWidth = 400;
@@ -93,7 +96,7 @@ export default function NewGameForm(props) {
     const [players, updatePlayers] = React.useState([]); // players is a list of Player objects that are currently in the game
     const [playerToAdd, updatePlayerToAdd] = React.useState(""); //playerToAdd is one Player object
     const [mafiaNum, updateMafiaNum] = React.useState(3);
-    const [disableAdd, updateDisableAdd] = React.useState(false);
+    // const [disableAssign, updateDisableAssign] = React.useState(true);
   
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -103,38 +106,16 @@ export default function NewGameForm(props) {
       setOpen(false);
     };
 
-    const componentDidMount = () => {
-      // custom rule will have name 'isPasswordMatch'
-      ValidatorForm.addValidationRule('isNewPlayer', value => {
-         return players.every(
-           player => player.name.toLowerCase() !== value.toLowerCase()
-         );
-      });
-    };
-
-    const handleSelect = e => {
-      updatePlayerToAdd(e.target.value);
-
-      let notInGame = players.every(
-        player => player.name !== e.target.value.name
-      );
-
-      if (!notInGame) {
-        updateDisableAdd(true);
-      } else {
-        updateDisableAdd(false);
-      }
-    }
-
-    const handleSubmit = () => {
-      updatePlayers(players.concat(playerToAdd));
-      
-      updateDisableAdd(true);
-    }
-
     const handleClear = () => {
       updatePlayers([]);
-      updateDisableAdd(false);
+    }
+
+    const handleCheck = e => {
+      if (e.target.checked) {
+        updatePlayers(players.concat(props.playerList.find(player => player.name.toLowerCase() === e.target.name.toLowerCase())));
+      } else {
+        updatePlayers(players.filter(player => player.name.toLowerCase() !== e.target.name.toLowerCase()));
+      }
     }
   
     return (
@@ -184,44 +165,29 @@ export default function NewGameForm(props) {
               <MenuItem value={1}>1</MenuItem>
               <MenuItem value={2}>2</MenuItem>
               <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
             </Select>
           </div>
 
           <div>
-            <Button variant="contained" color="primary">Assign Roles</Button>
+            <Button variant="contained" color="primary" disabled={mafiaNum * 2 < players.length ? false : true}>Assign Roles</Button>
             <Button variant="contained" color="secondary" onClick={handleClear}>Clear Players</Button>
           </div>
 
-          <div>
-            <Select id="playerSelect" onChange={handleSelect}>
-              {props.playerList.map(player => (
-                <MenuItem value={player}>{player.name}</MenuItem>
-              ))}
-            </Select>
-          </div>
-          
-          <ValidatorForm onSubmit={handleSubmit} >
-            {/* <SelectValidator
-              value={playerToAdd}
-              validators={["isNewPlayer"]}
-              errorMessages={["Player is already in the game!"]}
-              onChange={handleSelect}
-            >
-              {props.playerList.map(player => (
-                <MenuItem value={player}>{player.name}</MenuItem>
-              ))}
-            </SelectValidator> */}
-
-            <Button 
-              variant="contained" 
-              color="primary"
-              type="submit" 
-              disabled={disableAdd}
-            >
-              Add Player
-            </Button>
-          </ValidatorForm>
-
+            <div>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Choose Players</FormLabel>
+                <FormGroup>
+                  {props.playerList.map(player => (
+                    <FormControlLabel 
+                      control={<Checkbox checked={players.indexOf(player) >= 0 ? true : false} name={player.name} />}
+                      label={player.name}
+                      onChange={handleCheck}
+                    />
+                  ))}
+                </FormGroup>
+              </FormControl>
+            </div>
           
         </Drawer>
         <main
