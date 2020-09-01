@@ -8,33 +8,38 @@ import NewGameForm from './NewGameForm.js';
 import seedPlayers from './seedPlayers.js';
 
 class App extends Component {
-  findSeed = id => seed.find(val => val[0].url === id);
+  constructor(props) {
+    super(props);
+    this.state = {
+      games: seed
+    }
+  }
+
+  findSeed = id => this.state.games.find(val => val.url === id);
   
+  createGame = players => {
+    console.log(players);
+  }
 
   render() {
-    // const testGame = <Game townColors={seed[0].colors} 
-    //                     townPlayers={seed[1].players} 
-    //                     mafiaColors={seed[0].colors} 
-    //                     mafiaPlayers={seed[2].players} 
-    //                   />
-
     return(
       <div>
         <Switch>
           <Route exact path="/game/new"   
-            render={() => <NewGameForm playerList={seedPlayers} />}
+            render={routerProps => <NewGameForm playerList={seedPlayers} 
+              createGame={this.createGame} 
+              {...routerProps}
+            />}
           />
+
           <Route exact path="/game/:id" 
             render={routerProps => (
               <Game 
-                townColors={seedColors}
-                mafiaColors={seedColors}
-                townPlayers={this.findSeed( routerProps.match.params.id)[1]}
-                mafiaPlayers={this.findSeed(routerProps.match.params.id)[2]}
+                players={this.findSeed(routerProps.match.params.id).players}
               />
             )}
           />
-          <Route exact path ="/" render={(routeProps) => <GameList gamesInfo={seed} {...routeProps}/>}/>
+          <Route exact path ="/" render={(routeProps) => <GameList games={this.state.games} {...routeProps}/>}/>
         </Switch>
       </div>
     )

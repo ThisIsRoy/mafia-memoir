@@ -22,6 +22,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
 
 
 const drawerWidth = 400;
@@ -94,8 +95,8 @@ export default function NewGameForm(props) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [players, updatePlayers] = React.useState([]); // players is a list of Player objects that are currently in the game
-    const [playerToAdd, updatePlayerToAdd] = React.useState(""); //playerToAdd is one Player object
     const [mafiaNum, updateMafiaNum] = React.useState(3);
+    const [gameName, updateGameName] = React.useState("");
   
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -121,7 +122,7 @@ export default function NewGameForm(props) {
       }
     }
 
-    const handleAssign = () => {
+    const handleAssign = (newGame) => {
       let random = [];
       let i;
 
@@ -156,11 +157,17 @@ export default function NewGameForm(props) {
       updatePlayers(newPlayers);
       console.log(players);
     }
+
+    const createGame = () => {
+      props.createGame(players);
+      props.history.push("/");
+    }
   
     return (
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
+          color="default"
           position="fixed"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
@@ -179,8 +186,16 @@ export default function NewGameForm(props) {
             <Typography variant="h6" noWrap>
               Persistent drawer
             </Typography>
+            <Button variant="contained" 
+              color="primary" 
+              onClick={createGame}
+              disabled={gameName === "" || players.length === 0 ? true : false}
+            >
+              Create Game
+            </Button>
           </Toolbar>
         </AppBar>
+
         <Drawer
           className={classes.drawer}
           variant="persistent"
@@ -197,6 +212,15 @@ export default function NewGameForm(props) {
           </div>
           <Divider />
           <Typography variant="h4">Create Teams</Typography>
+
+          <div>
+            <TextField 
+              required={true} 
+              onChange={e => updateGameName(e.target.value)} 
+              value={gameName} 
+              placeholder="Game Name"
+            />
+          </div>
           
           <div>
             <InputLabel className={classes.mafiaSelect} id="mafia">Number of Mafia</InputLabel>

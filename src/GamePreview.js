@@ -43,14 +43,14 @@ const styles = {
 }
 
 function GamePreview(props) {
-    const {classes, gameInfo} = props;
+    const {classes, game} = props;
 
     return (
         <div className={classes.root} onClick={props.handleClick}>
             <div className={classes.imageBox}>
                 <div className={classes.image} style={{backgroundColor: "green"}} />
             </div>
-            <h5 className={classes.title}>{gameInfo[0].gameName}</h5>
+            <h5 className={classes.title}>{game.gameName}</h5>
         </div>
     )       
 }

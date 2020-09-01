@@ -31,7 +31,7 @@ class Player extends Component {
         }
 
         return (
-            <div style={{background: this.props.color}} className="Player">
+            <div style={{background: this.props.player.color}} className="Player">
                 <div className="BoxContainer">
                     <span>{this.props.player.name}</span>
                     <div>

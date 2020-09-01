@@ -10,7 +10,7 @@ class GameList extends Component {
     }
 
     render() {
-        const {gamesInfo, classes} = this.props;
+        const {games, classes} = this.props;
 
         return (
             <div className={classes.root}>
@@ -21,8 +21,8 @@ class GameList extends Component {
                     </nav>
 
                     <div className={classes.games}>
-                        {gamesInfo.map(gameInfo => (
-                            <GamePreview gameInfo={gameInfo} handleClick={() => this.handleClick(gameInfo[0].url)} />
+                        {games.map(game => (
+                            <GamePreview game={game} handleClick={() => this.handleClick(game.url)} />
                         ))}
                     </div>
                 </div>
