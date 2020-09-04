@@ -17,8 +17,18 @@ class App extends Component {
 
   findSeed = id => this.state.games.find(val => val.url === id);
   
-  createGame = players => {
-    console.log(players);
+  createGame = (players, gameName) => {
+    let gameLen = this.state.games.length + 1;
+
+    let game = {
+      players: players,
+      gameName: gameName,
+      url: "game-" + gameLen.toString()
+    }
+
+    this.setState(state => ({
+      games: state.games.concat([game])
+    }));
   }
 
   render() {

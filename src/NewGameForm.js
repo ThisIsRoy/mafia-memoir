@@ -136,6 +136,12 @@ export default function NewGameForm(props) {
 
       let newPlayers = players.slice();
 
+      // delete old roles
+      let player;
+      for (player of newPlayers) {
+        delete player["role"];
+      }
+
       // assign mafia
       for (i = 0; i < mafiaNum; i++) {
         newPlayers[random[i]]["role"] = "Mafia"  
@@ -148,19 +154,28 @@ export default function NewGameForm(props) {
       }
 
       // assign vanilla town
-      for (let player of newPlayers) {
+      for (player of newPlayers) {
         if (!player.role) {
           player["role"] = "Vanilla Town";
         }
       }
 
       updatePlayers(newPlayers);
-      console.log(players);
     }
 
     const createGame = () => {
-      props.createGame(players);
+      props.createGame(players, gameName);
       props.history.push("/");
+    }
+
+    const hasAssignedRoles = () => {
+      for (let player of players) {
+        if (!player.hasOwnProperty("role")) {
+          return false;
+        }
+      }
+
+      return true; 
     }
   
     return (
@@ -183,13 +198,11 @@ export default function NewGameForm(props) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
-              Persistent drawer
-            </Typography>
+      
             <Button variant="contained" 
               color="primary" 
               onClick={createGame}
-              disabled={gameName === "" || players.length === 0 ? true : false}
+              disabled={gameName === "" || players.length === 0 || !hasAssignedRoles() ? true : false}
             >
               Create Game
             </Button>
@@ -235,7 +248,7 @@ export default function NewGameForm(props) {
           <div>
             <Button variant="contained" 
               color="primary" 
-              disabled={mafiaNum * 2 + 3 < players.length ? false : true}
+              disabled={mafiaNum * 2 + 2 < players.length ? false : true}
               onClick={handleAssign}
             >Assign Roles</Button>
             <Button variant="contained" color="secondary" onClick={handleClear}>Clear Players</Button>

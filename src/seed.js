@@ -1,7 +1,7 @@
 export default [
     {
         gameName: "Aug 17",
-        url: "test1",
+        url: "game-1",
         players: [
             {name: "Wynne", role:"Vanilla Town", color: "#F44336"},
             {name: "Karin", role:"Vanilla Town", color: "#3F51B5" },
@@ -18,7 +18,7 @@ export default [
     },
     {
         gameName: "Aug 20",
-        url: "test2",
+        url: "game-2",
         players: [
             {name: "Wynne", role:"Vanilla Town", color: "#F44336"},
             {name: "Karin", role:"Vanilla Town", color: "#3F51B5" },
@@ -35,7 +35,7 @@ export default [
     },
     {
         gameName: "Aug 23",
-        url: "test3",
+        url: "game-3",
         players: [
             {name: "Wynne", role:"Vanilla Town", color: "#F44336"},
             {name: "Karin", role:"Vanilla Town", color: "#3F51B5" },
