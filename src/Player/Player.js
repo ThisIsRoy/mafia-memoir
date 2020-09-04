@@ -35,7 +35,7 @@ class Player extends Component {
                 <div className="BoxContainer">
                     <span>{this.props.player.name}</span>
                     <div>
-                        <img className="RoleImage" src={img} />
+                        <img className="RoleImage" src={img} alt="role" />
                     </div>
                 </div>
             </div>

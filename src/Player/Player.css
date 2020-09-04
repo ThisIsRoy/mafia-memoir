@@ -25,7 +25,7 @@
 .RoleImage {
     bottom: 1rem;
     filter: invert(100%) sepia(13%) saturate(7439%) hue-rotate(216deg) brightness(112%) contrast(116%);
-    height: 2.5vw;
+    height: 2vw;
     position: absolute;
     right: 1rem;
 }

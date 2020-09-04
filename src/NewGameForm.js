@@ -14,7 +14,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NewGamePlayer from './NewGamePlayer.js';
@@ -177,6 +176,11 @@ export default function NewGameForm(props) {
 
       return true; 
     }
+
+    const handleDelete = (playerName) => {
+      updatePlayers(players.filter(player => player.name !== playerName));
+      console.log("got here");
+    }
   
     return (
       <div className={classes.root}>
@@ -232,6 +236,9 @@ export default function NewGameForm(props) {
               onChange={e => updateGameName(e.target.value)} 
               value={gameName} 
               placeholder="Game Name"
+              inputProps={{
+                maxLength: 20
+              }}
             />
           </div>
           
@@ -263,6 +270,7 @@ export default function NewGameForm(props) {
                       control={<Checkbox checked={players.indexOf(player) >= 0 ? true : false} name={player.name} />}
                       label={player.name}
                       onChange={handleCheck}
+                      key={player.name}
                     />
                   ))}
                 </FormGroup>
@@ -278,7 +286,11 @@ export default function NewGameForm(props) {
           <div className={classes.drawerHeader} />
           
           {players.map(player =>(
-            <NewGamePlayer player={player} />
+            <NewGamePlayer 
+              player={player} 
+              handleDelete={() => handleDelete(player.name)} 
+              key={player.name}
+            />
           ))}
         </main>
       </div>
