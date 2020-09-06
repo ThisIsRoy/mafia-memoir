@@ -16,12 +16,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import NewGamePlayer from './NewGamePlayer.js';
+import NewGamePlayerList from './NewGamePlayerList.js';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
+import { arrayMove } from 'react-sortable-hoc';
 
 
 const drawerWidth = 400;
@@ -181,6 +182,10 @@ export default function NewGameForm(props) {
       updatePlayers(players.filter(player => player.name !== playerName));
       console.log("got here");
     }
+
+    const onSortEnd = ({oldIndex, newIndex}) => {
+      updatePlayers(arrayMove(players, oldIndex, newIndex));
+    }
   
     return (
       <div className={classes.root}>
@@ -285,13 +290,13 @@ export default function NewGameForm(props) {
         >
           <div className={classes.drawerHeader} />
           
-          {players.map(player =>(
-            <NewGamePlayer 
-              player={player} 
-              handleDelete={() => handleDelete(player.name)} 
-              key={player.name}
-            />
-          ))}
+          <NewGamePlayerList 
+            players={players}   
+            handleDelete={handleDelete} 
+            axis="xy"
+            onSortStart={(_, event) => event.preventDefault()}
+            onSortEnd={onSortEnd}
+          />
         </main>
       </div>
     );

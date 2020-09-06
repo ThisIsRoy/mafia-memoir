@@ -8,6 +8,7 @@ import vigi from './icons/vigi.svg';
 import unknown from './icons/unknown.svg';
 import './NewGamePlayer.css';
 import DeleteIcon from '@material-ui/icons/Delete';
+import {SortableElement} from 'react-sortable-hoc';
 
 const styles = {
     root: {
@@ -46,7 +47,7 @@ const styles = {
     }
 }
 
-function NewGamePlayer(props) {
+const NewGamePlayer = SortableElement((props) => {
     const {classes, player} = props;
 
     const role = player.role;
@@ -82,7 +83,7 @@ function NewGamePlayer(props) {
             </div>
             
         </div>
-    )
-}
+    );
+})
 
 export default withStyles(styles)(NewGamePlayer);
