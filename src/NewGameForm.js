@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -23,6 +24,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import { arrayMove } from 'react-sortable-hoc';
+import NewGameFormNav from './NewGameFormNav.js';
 
 
 const drawerWidth = 400;
@@ -189,35 +191,15 @@ export default function NewGameForm(props) {
   
     return (
       <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          color="default"
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-      
-            <Button variant="contained" 
-              color="primary" 
-              onClick={createGame}
-              disabled={gameName === "" || players.length === 0 || !hasAssignedRoles() ? true : false}
-            >
-              Create Game
-            </Button>
-          </Toolbar>
-        </AppBar>
-
+        <NewGameFormNav 
+          classes={classes}
+          open={open}
+          handleDrawerOpen={handleDrawerOpen}
+          createGame={createGame}
+          gameName={gameName}
+          players={players}
+          hasAssignedRoles={hasAssignedRoles}
+        />
         <Drawer
           className={classes.drawer}
           variant="persistent"
