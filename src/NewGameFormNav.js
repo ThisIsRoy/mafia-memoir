@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
+import NewGameCreateForm from './NewGameCreateForm.js';
 
 const styles = theme => ({
     root: {
@@ -18,6 +19,7 @@ const styles = theme => ({
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
+        alignItems: "center",
         flexDirection: "row",
         justifyContent: "space-between"
       },
@@ -66,13 +68,17 @@ class NewGameFormNav extends Component {
                     </Toolbar>
 
                     <div className={classes.navButtons}>
-                        <Button variant="contained" 
+                        <NewGameCreateForm 
+                            createGame={createGame}
+                            disabled={gameName === "" || players.length === 0 || !hasAssignedRoles() ? true : false}
+                        />
+                        {/* <Button variant="contained" 
                             color="primary" 
                             onClick={createGame}
                             disabled={gameName === "" || players.length === 0 || !hasAssignedRoles() ? true : false}
                         >
                         Create Game
-                        </Button>
+                        </Button> */}
                         <Link to="/">
                             <Button variant ="contained" color="secondary">
                                 Home

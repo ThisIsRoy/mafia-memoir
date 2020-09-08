@@ -68,6 +68,22 @@ const useStyles = makeStyles((theme) => ({
       }),
       marginLeft: 0,
     },
+    container: {
+      height: "100%", 
+      width: "90%",
+      paddingLeft: "2rem",
+    },
+    buttons: {
+      paddingBottom: "3rem",
+      width: "100%"
+    },
+    button: {
+      width: "50%"
+    },
+    formGroup: {
+      alignItems: "center",
+      display: 'flex',
+    }
   }));
 
 export default function NewGameForm(props) {
@@ -187,49 +203,69 @@ export default function NewGameForm(props) {
           }}
         >
           <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+              </IconButton>
           </div>
-          <Divider />
-          <Typography variant="h4">Create Teams</Typography>
+          <div className={classes.container}>
+            <Typography variant="h4" gutterBottom>Create Teams</Typography>
+            <Divider />
+            <div>
+              <TextField 
+                required={true} 
+                onChange={e => updateGameName(e.target.value)} 
+                value={gameName} 
+                placeholder="Game Name"
+                inputProps={{
+                  maxLength: 20
+                }}
+              />
+            </div>
+            
+            <div>
+              <InputLabel className={classes.mafiaSelect} id="mafia">Number of Mafia</InputLabel>
+              <Select labelId="mafia" id="mafiaSelect" defaultValue={3} onChange={e => updateMafiaNum(e.target.value)}>
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+              </Select>
+            </div>
 
-          <div>
-            <TextField 
-              required={true} 
-              onChange={e => updateGameName(e.target.value)} 
-              value={gameName} 
-              placeholder="Game Name"
-              inputProps={{
-                maxLength: 20
-              }}
-            />
-          </div>
-          
-          <div>
-            <InputLabel className={classes.mafiaSelect} id="mafia">Number of Mafia</InputLabel>
-            <Select labelId="mafia" id="mafiaSelect" defaultValue={3} onChange={e => updateMafiaNum(e.target.value)}>
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-            </Select>
-          </div>
-
-          <div>
-            <Button variant="contained" 
-              color="primary" 
-              disabled={mafiaNum * 2 + 2 < players.length ? false : true}
-              onClick={handleAssign}
-            >Assign Roles</Button>
-            <Button variant="contained" color="secondary" onClick={handleClear}>Clear Players</Button>
-          </div>
+            <div className={classes.buttons}>
+              <Button variant="contained" 
+                color="primary" 
+                disabled={mafiaNum * 2 + 2 < players.length ? false : true}
+                onClick={handleAssign}
+                className={classes.button}
+              >Assign Roles</Button>
+              <Button 
+                variant="contained" 
+                color="secondary" 
+                onClick={handleClear}
+                className={classes.button}
+              >Clear Players</Button>
+            </div>
 
             <div>
               <FormControl component="fieldset">
-                <FormLabel component="legend">Choose Players</FormLabel>
-                <FormGroup>
-                  {props.playerList.map(player => (
+                <FormLabel component="legend">Choose players</FormLabel>
+                <FormGroup >
+                  {props.playerList.slice(0, Math.floor(props.playerList.length / 2)).map(player => (
+                    <FormControlLabel 
+                      control={<Checkbox checked={players.indexOf(player) >= 0 ? true : false} name={player.name} />}
+                      label={player.name}
+                      onChange={handleCheck}
+                      key={player.name}
+                    />
+                  ))}
+                </FormGroup>
+              </FormControl>
+
+              <FormControl component="fieldset">
+                <FormLabel component="legend">!</FormLabel>
+                <FormGroup >
+                  {props.playerList.slice(Math.ceil(props.playerList.length / 2), props.playerList.length).map(player => (
                     <FormControlLabel 
                       control={<Checkbox checked={players.indexOf(player) >= 0 ? true : false} name={player.name} />}
                       label={player.name}
@@ -240,6 +276,8 @@ export default function NewGameForm(props) {
                 </FormGroup>
               </FormControl>
             </div>
+          </div>
+          
           
         </Drawer>
         <main
