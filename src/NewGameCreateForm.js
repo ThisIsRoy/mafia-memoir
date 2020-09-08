@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,29 +7,30 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function NewGameCreateForm({ createGame, disabled }) {
-    const [open, setOpen] = React.useState(false);
-  
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
+export default function NewGameCreateForm({ createGame, disabled, updateGameName, handleClose }) {
+    const [open, setOpen] = React.useState(true);
   
     return (
-      <div>
-        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-          Open form dialog
-        </Button>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-          <DialogContent>
+            <DialogTitle id="form-dialog-title">Create Game</DialogTitle>
+            <DialogContent>
             <DialogContentText>
-              To subscribe to this website, please enter your email address here. We will send updates
-              occasionally.
+                Please enter a name for the game. Recommended format is date of game 
+                (e.g., "August 23rd 2020").
             </DialogContentText>
+            <TextField 
+                fullWidth 
+                label="Game Name" 
+                inputProps={{
+                    maxLength: 20
+                }}
+                onChange={e => updateGameName(e.target.value)} 
+            />
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={handleClose} color="primary">
+                Cancel
+            </Button>
             <Button variant="contained" 
                 color="primary" 
                 onClick={createGame}
@@ -37,16 +38,7 @@ export default function NewGameCreateForm({ createGame, disabled }) {
             >
                 Create Game
             </Button> 
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={handleClose} color="primary">
-              Subscribe
-            </Button>
-          </DialogActions>
+            </DialogActions>
         </Dialog>
-      </div>
     );
   }

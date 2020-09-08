@@ -9,42 +9,27 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
 import NewGameCreateForm from './NewGameCreateForm.js';
+import styles from './NewGameFormNavStyles.js';
 
-const styles = theme => ({
-    root: {
-        display: "flex"
-    },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        alignItems: "center",
-        flexDirection: "row",
-        justifyContent: "space-between"
-      },
-      appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-      },
-      menuButton: {
-        marginRight: theme.spacing(2),
-    },
-});
-
-const drawerWidth = 400; 
 
 class NewGameFormNav extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showForm: false
+        }
+    }
+
+    handleClickOpen = () => {
+        this.setState({showForm: true});
+    }
+
+    handleClose = () => {
+        this.setState({showForm: false});
     }
 
     render() {
-        const { classes, open, handleDrawerOpen, createGame, gameName, players, hasAssignedRoles } = this.props;
+        const { classes, open, updateGameName, handleDrawerOpen, createGame, gameName, players, hasAssignedRoles } = this.props;
         return(
             <div className={classes.root}>
                 <CssBaseline />
@@ -68,10 +53,7 @@ class NewGameFormNav extends Component {
                     </Toolbar>
 
                     <div className={classes.navButtons}>
-                        <NewGameCreateForm 
-                            createGame={createGame}
-                            disabled={gameName === "" || players.length === 0 || !hasAssignedRoles() ? true : false}
-                        />
+                        
                         {/* <Button variant="contained" 
                             color="primary" 
                             onClick={createGame}
@@ -79,13 +61,25 @@ class NewGameFormNav extends Component {
                         >
                         Create Game
                         </Button> */}
+                        <Button className={classes.button} variant="contained" color="primary" onClick={this.handleClickOpen}>
+                            Create Game
+                        </Button>
                         <Link to="/">
-                            <Button variant ="contained" color="secondary">
+                            <Button className={classes.button} variant ="contained" color="secondary">
                                 Home
                             </Button>
                         </Link>
                     </div>
                 </AppBar>
+
+                {this.state.showForm && (
+                    <NewGameCreateForm 
+                        createGame={createGame}
+                        updateGameName={updateGameName}
+                        handleClose={this.handleClose}
+                        disabled={gameName === "" || players.length === 0 || !hasAssignedRoles() ? true : false}
+                    />
+                )}
             </div>
         )
     }

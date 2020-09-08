@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -17,74 +17,10 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
 import { arrayMove } from 'react-sortable-hoc';
 import NewGameFormNav from './NewGameFormNav.js';
+import useStyles from './NewGameFormStyles.js';
 
-
-const drawerWidth = 400;
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-    },
-    hide: {
-      display: 'none',
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
-    },
-    drawerHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-      justifyContent: 'flex-end',
-    },
-    mafiaSelect: {
-      display: "inline-block",
-      marginRight: "1.5rem",
-      verticalAlign: "super"
-    },
-    content: {
-      flexGrow: 1,
-      height: "calc(100vh - 64px)",
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: -drawerWidth,
-    },
-    contentShift: {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    },
-    container: {
-      height: "100%", 
-      width: "90%",
-      paddingLeft: "2rem",
-    },
-    buttons: {
-      paddingBottom: "3rem",
-      width: "100%"
-    },
-    button: {
-      width: "50%"
-    },
-    formGroup: {
-      alignItems: "center",
-      display: 'flex',
-    }
-  }));
 
 export default function NewGameForm(props) {
     const classes = useStyles();
@@ -186,6 +122,7 @@ export default function NewGameForm(props) {
     return (
       <div className={classes.root}>
         <NewGameFormNav 
+          updateGameName={updateGameName}
           open={open}
           handleDrawerOpen={handleDrawerOpen}
           createGame={createGame}
@@ -210,18 +147,7 @@ export default function NewGameForm(props) {
           <div className={classes.container}>
             <Typography variant="h4" gutterBottom>Create Teams</Typography>
             <Divider />
-            <div>
-              <TextField 
-                required={true} 
-                onChange={e => updateGameName(e.target.value)} 
-                value={gameName} 
-                placeholder="Game Name"
-                inputProps={{
-                  maxLength: 20
-                }}
-              />
-            </div>
-            
+      
             <div>
               <InputLabel className={classes.mafiaSelect} id="mafia">Number of Mafia</InputLabel>
               <Select labelId="mafia" id="mafiaSelect" defaultValue={3} onChange={e => updateMafiaNum(e.target.value)}>
