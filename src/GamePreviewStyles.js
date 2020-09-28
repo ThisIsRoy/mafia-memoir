@@ -38,18 +38,15 @@ const styles = {
         position: "relative",
         marginBottom: "-3.5px"
     },
-    delete: {
-        
-    },
-    deleteIcon: {
+    // padding broke button after create game for some reason
+    deleteIcon: { 
         backgroundColor: "#FF4136",
         color: "white",
-        height: "20px",
+        height: "30px",
         position: "absolute",
         right: "0px",
         top: "0px",
-        padding: "10px",
-        width: "20px",
+        width: "30px",
         opacity: "0",
         zIndex: "999"
     }

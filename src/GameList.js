@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import GamePreview from './GamePreview.js';
-import {withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/styles";
 import styles from './GameListStyles.js';
 
 class GameList extends Component {
@@ -10,7 +10,7 @@ class GameList extends Component {
     }
 
     render() {
-        const {games, classes} = this.props;
+        const {games, classes, deleteGame} = this.props;
 
         return (
             <div className={classes.root}>
@@ -22,7 +22,13 @@ class GameList extends Component {
 
                     <div className={classes.games}>
                         {games.map(game => (
-                            <GamePreview game={game} handleClick={() => this.handleClick(game.url)} />
+                            <GamePreview 
+                                game={game}
+                                deleteGame={deleteGame}     
+                                handleClick={() => this.handleClick(game.url)} 
+                                key={game.url}
+                                id={game.url}
+                            />
                         ))}
                     </div>
                 </div>
