@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import GamePreview from './GamePreview.js';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { withStyles } from "@material-ui/styles";
 import styles from './GameListStyles.js';
 
@@ -20,17 +21,20 @@ class GameList extends Component {
                         <Link to="/game/new">Create Game</Link>
                     </nav>
 
-                    <div className={classes.games}>
+                    <TransitionGroup className={classes.games}>
                         {games.map(game => (
-                            <GamePreview 
-                                game={game}
-                                deleteGame={deleteGame}     
-                                handleClick={() => this.handleClick(game.url)} 
-                                key={game.url}
-                                id={game.url}
-                            />
+                            <CSSTransition key={game.url} classNames="fade" timeout={500}>
+                                <GamePreview 
+                                    game={game}
+                                    deleteGame={deleteGame}     
+                                    handleClick={() => this.handleClick(game.url)} 
+                                    key={game.url}
+                                    id={game.url}
+                                />
+                            </CSSTransition>
                         ))}
-                    </div>
+                    </TransitionGroup>  
+                    
                 </div>
             </div>
         )
